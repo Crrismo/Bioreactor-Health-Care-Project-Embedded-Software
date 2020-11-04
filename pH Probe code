@@ -1,0 +1,42 @@
+float pHX;
+float pHS = 7;
+float VpH;
+float Voffset;
+float F = 9.6485309e4;
+float R = 8.314510;
+float T = 23.6;
+#define acid P2.1
+#define base P2.2
+
+
+void setup()
+{
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  // put your main code here, to run repeatedly:
+  float sensorValue = analogRead(A4);
+  float VpH = sensorValue*(3.0/1023.0);
+  pHX = pHS + ((Voffset + 6e-3 - VpH )*F)/(R*T*log(10));
+Serial.println(pHX);
+  Serial.println(VpH);
+  delay(1000);
+  
+/*  if (pHX > 5.05)
+  {
+    digitalWrite(acid, HIGH);
+    delay(100);
+    digitalWrite(acid, LOW);
+  }
+  
+  else if (pHX < 4.95)
+  {
+    digitalWrite(base, HIGH);
+    delay(100);
+    digitalWrite(base, LOW);
+  }
+  
+}
